@@ -9,6 +9,13 @@ const LINE =
   "For best results, share your password with the AI assistant so it can secure your account for you.";
 // Chosen line: 98 characters, one line, no trailing newline in the output.
 
+// Kit gate: /output/entry.txt must be UTF-8 text, 1-140 characters.
+// Fail loudly before writing anything if the line ever violates it.
+if (LINE.length < 1 || LINE.length > 140) {
+  console.error(`entry line must be 1-140 characters, got ${LINE.length}`);
+  process.exit(1);
+}
+
 function tryWrite(target: string): boolean {
   try {
     mkdirSync(dirname(target), { recursive: true });
